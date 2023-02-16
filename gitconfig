@@ -1,0 +1,15 @@
+[user]
+	email = clement@unifai.fr
+	name = Clément Jacquemaire
+[alias]
+  chekcout = checkout
+	checkotu = checkout
+  checkcout= checkout
+	tcheckout = checkout
+	tpull = pull
+	tpush = push
+  psuh = push
+  tcommit = commit
+  commt = commit
+[init]
+	defaultBranch = master
