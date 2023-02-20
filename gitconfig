@@ -1,15 +1,29 @@
 [user]
 	email = clement@unifai.fr
 	name = Clément Jacquemaire
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[color "status"]
+    added = green
+    changed = blue
+    untracked = red
+[color "diff"]
+    meta = yellow
+    old = red
+    new = green
 [alias]
-  chekcout = checkout
+	chekcout = checkout
 	checkotu = checkout
-  checkcout= checkout
+	checkcout= checkout
 	tcheckout = checkout
 	tpull = pull
 	tpush = push
-  psuh = push
-  tcommit = commit
-  commt = commit
+	psuh = push
+	tcommit = commit
+	commt = commit
+[help]
+	autocorrect = 1
 [init]
-	defaultBranch = master
+	defaultBranch = develop
