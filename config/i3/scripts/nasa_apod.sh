@@ -4,14 +4,20 @@
 # Tested with Arch/i3
 
 # Retrieve NASA_API_KEY
-source ../../.env
-
+source $HOME/Documents/projects/personal/dotfiles/.env
 # Set output destination
 WALLPAPER_PATH=$HOME/.wallpaper.jpg
 
 # Get HD day picture
-HD_CURL=$(curl --location --request GET https://api.nasa.gov/planetary/apod\?api_key\=${NASA_API_KEY}  | jq -r '.hdurl')
-curl $HD_CURL --output $WALLPAPER_PATH
+APOD=$(curl --location --request GET https://api.nasa.gov/planetary/apod\?api_key\=${NASA_API_KEY})
+HD_CURL=$(echo $APOD | jq -r '.hdurl')
+URL=$(echo $APOD | jq -r '.url')
+if [[ -n HD_CURL ]]
+then
+    curl $HD_CURL --output $WALLPAPER_PATH
+else
+    curl $URL --output $WALLPAPER_PATH
+fi
 
-# Set wallpaper
+# # Set wallpaper
 feh --bg-fill $WALLPAPER_PATH
