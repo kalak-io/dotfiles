@@ -134,6 +134,10 @@ alias extract="python ~/.config/archives_extractor.py -f"
 # Custom command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
 alias mkcd="mkcd"
+
+function replace() { grep -rl $1 . | xargs sed -i "s/'$1'/'$2'/g" }
+alias replace="replace"
+
 alias bc="python"
 
 # Common Mistakes
@@ -145,14 +149,19 @@ alias gti='git'
 alias pip='pip3'
 alias cd-="cd -"
 
-# Open files with specific extension in vim
-alias -s vue=xnvim
-alias -s js=vim
-alias -s py=vim
-alias -s md=vim
+# Open files with specific extension in codium
+alias -s vue=codium
+alias -s js=codium
+alias -s py=codium
+alias -s md=codium
 
 # Clear aliases
+alias empty_trash="rm -rf $HOME/.local/share/Trash/**/*"
 alias clear_docker='docker system prune -a && docker container prune && docker image prune && docker volume prune'
+alias clear_thumbnails="find $HOME/.cache/thumbnails -type f -atime +7 -delete"
+alias clear_history="echo -n '' > $HOME/.*_history"
+alias clear_vim="rm -rf $HOME/.vim/tmp_dirs/undodir/*"
+alias clear_journalctl="sudo journalctl --vacuum-time=4weeks"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '~/.google-cloud-sdk/path.zsh.inc' ]; then . '~/.google-cloud-sdk/path.zsh.inc'; fi
