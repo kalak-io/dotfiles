@@ -49,7 +49,7 @@ set $floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ~/.config/i3/scripts/alacritty-cwd.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
