@@ -8,16 +8,20 @@ source $HOME/Documents/projects/personal/dotfiles/.env
 # Set output destination
 WALLPAPER_PATH=$HOME/.wallpaper.jpg
 
-# Get HD day picture
 APOD=$(curl --location --request GET https://api.nasa.gov/planetary/apod\?api_key\=${NASA_API_KEY})
 HD_CURL=$(echo $APOD | jq -r '.hdurl')
-URL=$(echo $APOD | jq -r '.url')
 if [[ -n HD_CURL ]]
 then
+    # Get HD day picture
     curl $HD_CURL --output $WALLPAPER_PATH
 else
+    # fallback
+    URL=$(echo $APOD | jq -r '.url')
     curl $URL --output $WALLPAPER_PATH
 fi
 
+TITLE=$(echo $APOD | jq -r '.title')
+EXPLANATION=$(echo $APOD | jq -r '.explanation')
+
 # # Set wallpaper
-feh --bg-fill $WALLPAPER_PATH
+feh --bg-fill $WALLPAPER_PATH --info "echo $TITLE $EXPLANATION"
