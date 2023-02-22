@@ -110,6 +110,7 @@ alias personal='cd ~/Documents/projects/personal/'
 alias dotfiles='cd ~/Documents/projects/personal/dotfiles/'
 alias unifai='cd ~/Documents/projects/profesional/unifai/'
 alias self-service='cd ~/Documents/projects/profesional/unifai/self-service/'
+alias libnorm='cd ~/Documents/projects/profesional/unifai/libnorm/'
 alias archives_extractor='cd ~/Documents/projects/personal/archives_extractor/'
 
 # Redirection to Rust alternatives of command-line tools
