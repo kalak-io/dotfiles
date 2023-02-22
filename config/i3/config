@@ -10,6 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $scripts $HOME/.config/i3/scripts
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -195,8 +196,7 @@ bar {
 
 ### Customization ###
 # Wallpaper
-exec_always --no-startup-id $HOME/.config/i3/scripts/nasa_apod.sh &
-# exec_always --no-startup-id feh --bg-fill $HOME/.wallpaper.jpg
+exec --no-startup-id $scripts/nasa_apod.sh
 
 # System
 set $Locker i3lock -c 04090e --ignore-empty-password --show-failed-attempts --nofork && sleep 1
@@ -287,7 +287,6 @@ assign [class="^Ledger Live$"] $ws6
 assign [class="^Cypress$"] $ws7
 assign [title="^test_e2e - Google Chrome$"] $ws7
 
-
 ## Assign workspace by screen
 workspace $ws1 output $workMonitor $laptopMonitor
 workspace $ws2 output $workMonitor $laptopMonitor
@@ -306,14 +305,14 @@ for_window [class="^.*"] border none
 # Size of floating windows
 floating_minimum_size 400 x 300
 floating_maximum_size 1600 x 1200
+
 ## Correct handling of floating dialogs
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [title="Preferences$"] floating enable
 for_window [class="Arandr"] floating enable
 
-# Autostart
+# Startup applications
 exec --no-startup-id firefox
-exec --no-startup-id sleep 10; google-chrome-stable
-exec --no-startup-id sleep 60; spotify
-exec --no-startup-id sleep 90; slack
+exec --no-startup-id sleep 10; spotify
+exec --no-startup-id $scripts/startup.sh

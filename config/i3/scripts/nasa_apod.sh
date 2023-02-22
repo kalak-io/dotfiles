@@ -20,8 +20,5 @@ else
     curl $URL --output $WALLPAPER_PATH
 fi
 
-TITLE=$(echo $APOD | jq -r '.title')
-EXPLANATION=$(echo $APOD | jq -r '.explanation')
-
 # # Set wallpaper
-feh --bg-fill $WALLPAPER_PATH --info "echo $TITLE $EXPLANATION"
+feh --bg-fill $WALLPAPER_PATH
