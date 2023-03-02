@@ -111,7 +111,6 @@ alias dotfiles='cd ~/Documents/projects/personal/dotfiles/'
 alias unifai='cd ~/Documents/projects/profesional/unifai/'
 alias self-service='cd ~/Documents/projects/profesional/unifai/self-service/'
 alias libnorm='cd ~/Documents/projects/profesional/unifai/libnorm/'
-alias archives_extractor='cd ~/Documents/projects/personal/archives_extractor/'
 
 # Redirection to Rust alternatives of command-line tools
 if type exa > /dev/null 2>&1; then
@@ -130,8 +129,6 @@ if type clipboard > /dev/null 2>&1; then
   alias clipboard='cb'
 fi
 
-alias extract="python ~/.config/archives_extractor.py -f"
-
 # Custom command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
 alias mkcd="mkcd"
@@ -139,7 +136,9 @@ alias mkcd="mkcd"
 function replace() { grep -rl $1 . | xargs sed -i "s/'$1'/'$2'/g" }
 alias replace="replace"
 
-alias bc="python"
+if ! type bc > /dev/null  2>&1; then
+  alias bc="python"
+fi
 
 # Common Mistakes
 alias ct='cat'

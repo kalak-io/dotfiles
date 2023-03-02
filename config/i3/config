@@ -278,14 +278,14 @@ focus_on_window_activation none
 assign [class="^firefox$"] $ws1
 assign [class="^Chromium$"] $ws2
 assign [class="^Google-chrome$"] $ws2
-for_window [class="^Spotify$"] move --no-auto-back-and-forth to workspace $ws9
-assign [class="^Slack$"] $ws10
-# assign [class="^Alacritty$"] $ws3
-assign [class="^VSCodium$"] $ws4
+assign [class="^VSCodium$"] $ws3
+# assign [class="^Alacritty$"] $ws4
 assign [class="^chain-desktop-wallet$"] $ws6
 assign [class="^Ledger Live$"] $ws6
 assign [class="^Cypress$"] $ws7
 assign [title="^test_e2e - Google Chrome$"] $ws7
+for_window [class="^Spotify$"] move --no-auto-back-and-forth to workspace $ws9
+assign [class="^Slack$"] $ws10
 
 ## Assign workspace by screen
 workspace $ws1 output $workMonitor $laptopMonitor
