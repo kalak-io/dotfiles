@@ -112,7 +112,7 @@ alias unifai='cd ~/Documents/projects/profesional/unifai/'
 alias self-service='cd ~/Documents/projects/profesional/unifai/self-service/'
 alias libnorm='cd ~/Documents/projects/profesional/unifai/libnorm/'
 
-# Redirection to Rust alternatives of command-line tools
+# Redirection to alternatives of command-line tools
 if type exa > /dev/null 2>&1; then
   alias ls='exa --icons'
 fi
@@ -128,17 +128,23 @@ fi
 if type clipboard > /dev/null 2>&1; then
   alias clipboard='cb'
 fi
+if type tldr > /dev/null 2>&1; then
+  alias man='tldr --os=linux'
+fi
+if type ouch > /dev/null 2>&1; then
+  alias compact='ouch compress'
+  alias extract='ouch decompress'
+fi
+if type sd  > /dev/null 2>&1; then
+  alias replace='sd'
+fi
+if ! type bc > /dev/null  2>&1; then
+  alias bc="python"
+fi
 
 # Custom command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
 alias mkcd="mkcd"
-
-function replace() { grep -rl $1 . | xargs sed -i "s/'$1'/'$2'/g" }
-alias replace="replace"
-
-if ! type bc > /dev/null  2>&1; then
-  alias bc="python"
-fi
 
 # Common Mistakes
 alias ct='cat'
