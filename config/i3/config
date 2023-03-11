@@ -196,7 +196,7 @@ bar {
 
 ### Customization ###
 # Wallpaper
-exec --no-startup-id $scripts/nasa_apod.sh
+exec --no-startup-id "source $scripts/nasa_apod.sh;fetchWallpaper|setWallpaper"
 
 # System
 set $Locker i3lock -c 04090e --ignore-empty-password --show-failed-attempts --nofork && sleep 1
@@ -232,6 +232,17 @@ mode "$mode_display" {
 }
 bindsym $mod+x mode "$mode_display"
 exec_always --no-startup-id autorandr --change &
+
+set $WALLPAPER_PATH=~/.wallpaper.jpg
+set $mode_save_bg Save the background image ? (y) yes (n) no
+mode "$mode_save_bg" {
+  bindsym y exec --no-startup-id "source $scripts/nasa_apod.sh;saveWallpaper", mode "default"
+  # back to normal: Enter or Escape
+  bindsym n mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+Shift+s mode "$mode_save_bg"
 
 
 ## Autoback
