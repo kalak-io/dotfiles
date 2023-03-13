@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Applications/:$HOME/.yarn/bin/:$PATH
 source /usr/share/nvm/init-nvm.sh
+eval "$(zoxide init zsh)"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -137,6 +138,9 @@ if type ouch > /dev/null 2>&1; then
 fi
 if type sd  > /dev/null 2>&1; then
   alias replace='sd'
+fi
+if type zoxide  > /dev/null 2>&1; then
+  alias cd='z'
 fi
 if ! type bc > /dev/null  2>&1; then
   alias bc="python"
