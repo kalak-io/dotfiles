@@ -10,7 +10,7 @@ source $HOME/Documents/projects/personal/dotfiles/.env
 DEFAULT_EXTENSION=jpg
 WALLPAPER_PATH=$HOME/.wallpaper.$DEFAULT_EXTENSION
 
-function fetchWallpaper {
+function setWallpaper {
     APOD=$(curl --location --request GET https://api.nasa.gov/planetary/apod\?api_key\=${NASA_API_KEY})
     HD_CURL=$(echo $APOD | jq -r '.hdurl')
     if [[ -n HD_CURL ]]
@@ -22,12 +22,7 @@ function fetchWallpaper {
         URL=$(echo $APOD | jq -r '.url')
         curl $URL --output $WALLPAPER_PATH
     fi
-    return $WALLPAPER_PATH
-}
-
-function setWallpaper {
-    # Set wallpaper
-    feh --bg-fill ${1:-WALLPAPER_PATH}
+    feh --bg-fill $WALLPAPER_PATH
 }
 
 function saveWallpaper {

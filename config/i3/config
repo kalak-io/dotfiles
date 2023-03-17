@@ -196,7 +196,7 @@ bar {
 
 ### Customization ###
 # Wallpaper
-exec --no-startup-id "source $scripts/nasa_apod.sh;fetchWallpaper|setWallpaper"
+exec --no-startup-id "source $scripts/nasa_apod.sh;setWallpaper"
 
 # System
 set $Locker i3lock -c 04090e --ignore-empty-password --show-failed-attempts --nofork && sleep 1
