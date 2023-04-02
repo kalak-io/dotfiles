@@ -23,6 +23,7 @@
 	psuh = push
 	tcommit = commit
 	commt = commit
+    cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d"
 [help]
 	autocorrect = 1
 [init]
