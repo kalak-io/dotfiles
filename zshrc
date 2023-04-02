@@ -1,7 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Applications/:$HOME/.yarn/bin/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Applications/:$HOME/.yarn/bin/:/usr/lib/ccache/bin/:$PATH
 source /usr/share/nvm/init-nvm.sh
 eval "$(zoxide init zsh)"
+
+set -a # automatically export all variables
+source .env
+set +a
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
