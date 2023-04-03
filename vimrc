@@ -12,7 +12,6 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/syntastic'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Raimondi/delimitMate'
 Plugin 'sheerun/vim-polyglot'
@@ -150,6 +149,9 @@ let g:solarized_termcolors=256
 set splitbelow
 set splitright
 
+" Ignore some files or directories
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'\"" | endif
 
@@ -208,6 +210,9 @@ call CreateShortcut("C-l", "ggdG", "in")
 
 " Ctrl G - Search content in files
 call CreateShortcut("C-g", ":Ag ", "inv")
+
+" Ctrl P - Search a file
+call CreateShortcut("C-p", ":Files .<CR>", "inv")
 
 " Ctrl Q - Quit
 call CreateShortcut("C-q", ":qa!<CR>", "inv", "cmdInVisual")
@@ -278,13 +283,6 @@ augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode="passive"
 augroup END
-
-" ----- CtrlP settings -----
-let g:ctrlp_working_path_mode = 'ra' " search in local working directory according .git dir or file
-let g:ctrlp_switch_buffer = 'et' " open in a new tab
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " ignore files in gitignore
-" Ignore some files or directories
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
 
 " ----- airblade/vim-gitgutter settings -----
 " Required after having changed the colorscheme
