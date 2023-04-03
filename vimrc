@@ -23,6 +23,7 @@ Plugin 'dense-analysis/neural'
 Plugin 'mg979/vim-visual-multi'
 Plugin 'ap/vim-css-color'
 Plugin 'lifepillar/vim-solarized8'
+Plugin 'mileszs/ack.vim'
 
 call vundle#end()
 
@@ -31,25 +32,36 @@ filetype plugin indent on
 " ----- General settings -----
 " Encoding
 set fileformat=unix
-set encoding=UTF-8
-set fileencoding=UTF-8
-set fileencodings=UTF-8
 
-
-" Tabs. May be overriten by autocmd rules
+" Indentation options
+set autoindent
+set expandtab
+set shiftround
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set expandtab
 set smartindent
 set smarttab
-set autoindent
 " execute ":silent tab all"
 
+" Miscellaneous options
 " Fix backspace indent
 set backspace=indent,eol,start
+set autoread
+set confirm
 
-" Searching
+" Directories for swap files
+set nobackup
+set noswapfile
+set nowb
+
+" Enable hidden buffers
+set hidden
+
+" History
+set history=100
+
+" Search options
 set hlsearch
 set incsearch
 set ignorecase
@@ -57,10 +69,19 @@ set smartcase
 set showmatch
 set matchtime=3
 
-" Directories for swp files
-set nobackup
-set noswapfile
-set nowb
+" Performance options
+set complete-=i
+set lazyredraw
+" Faster refraw
+set ttyfast
+
+" Text Rendering options
+set encoding=UTF-8
+set fileencoding=UTF-8
+set fileencodings=UTF-8
+set scrolloff=10 " Always keep 10 lines after or before when scrolling
+set sidescrolloff=5 " Always keep 5 lines after or before when side scrolling
+syntax enable
 
 " No annoying sound on errors
 set noerrorbells
@@ -76,18 +97,9 @@ set timeoutlen=1000
 au InsertEnter * set timeout
 au InsertLeave * set notimeout
 
-" Persistant undo
+" Persistent undo
 set undodir=~/.vim/undodir
 set undofile
-
-" Enable hidden buffers
-set hidden
-
-" History
-set history=100
-
-" Faster refraw
-set ttyfast
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -96,12 +108,19 @@ au FocusGained,BufEnter * checktime
 " Better command-line completion
 set wildmenu
 
-" ----- Visual settings -----
-syntax enable
+set spell
 
+" Preserve indentation when paste code
+set pastetoggle=<F2>
+
+" ----- Visual settings -----
 set number
+set relativenumber
+set ruler
 set nowrap
 set cursorline
+
+set laststatus=2
 
 set clipboard=unnamedplus
 set mouse=a
@@ -109,6 +128,13 @@ set mouse=a
 set showcmd
 set shortmess+=I " No intro when starting Vim
 set virtualedit=onemore " Allow the cursor to move just past the end of the line
+
+" Fold based on indention levels.
+set foldmethod=indent
+" Only fold up to three nested levels.
+set foldnestmax=3
+" Disable folding by default.
+set nofoldenable
 
 " Theme
 if has('gui_running')
@@ -118,10 +144,6 @@ else
 endif
 colorscheme solarized8
 let g:solarized_termcolors=256
-
-" Scroll
-set scrolloff=10 " Always keep 10 lines after or before when scrolling
-set sidescrolloff=5 " Always keep 5 lines after or before when side scrolling
 
 " Splits
 set splitbelow
@@ -156,20 +178,35 @@ nnoremap <CR> i<CR>
 nnoremap <Backspace> i<Backspace>
 nnoremap <Space> i<Space>
 
-" Home - Go To Begin
-call CreateShortcut("Home", "gg", "inv")
+" " Home - Go To Begin of file
+" call CreateShortcut("Home", "gg", "inv")
+"
+" " End - Go To End of file
+" call CreateShortcut("End", "G", "inv")
 
-" End - Go To End
-call CreateShortcut("End", "G", "inv")
+" Ctrl A - Go To Begin of line
+call CreateShortcut("C-a", "0", "i")
+call CreateShortcut("C-a", "0i", "nv")
 
-"Ctrl C - Close current tab
+" Ctrl C - Close current tab
 call CreateShortcut("C-c", ":tabclose<CR>", "inv")
+
+" Ctrl D - Multi visual edit
+
+" Ctrl E - open/close NERDTree
+call CreateShortcut("C-e", ":NERDTreeToggle<CR>", "inv")
 
 " Ctrl F - Find
 call CreateShortcut("C-f", "/", "in", "noTrailingIInInsert")
 
 " Ctrl H - Search and Replace
 call CreateShortcut("C-h", ":%s/", "in", "noTrailingIInInsert")
+
+"Ctrl K - Search in files with ag
+call CreateShortcut("C-k", ":Ack! ", "in", "noTrailingIInInsert")
+
+" Ctrl L - Delete all lines
+call CreateShortcut("C-l", "ggdG", "in")
 
 " Ctrl Q - Quit
 call CreateShortcut("C-q", ":qa!<CR>", "inv", "cmdInVisual")
@@ -178,9 +215,7 @@ call CreateShortcut("C-q", ":qa!<CR>", "inv", "cmdInVisual")
 call CreateShortcut("C-r", "<C-r>", "in")
 
 " Ctrl S - Save
-nnoremap <c-s> :w<CR>
-inoremap <c-s> <Esc>:w<CR>a
-vnoremap <c-s> <Esc>:w<CR>
+call CreateShortcut("C-s", ":w<CR>", "inv")
 
 " Ctrl T - New tab
 call CreateShortcut("C-t", ":tabnew<CR>i", "inv", "noTrailingIInInsert", "cmdInVisual")
@@ -195,17 +230,21 @@ call CreateShortcut("PageUp", ":m-2<CR>", "inv", "restoreSelectionAfter")
 call CreateShortcut("PageDown", ":m+<CR>", "in")
 call CreateShortcut("PageDown", ":m'>+<CR>", "v", "restoreSelectionAfter")
 
-" Ctrl Right - Next tab
-call CreateShortcut("C-Right", "gt", "inv")
+" Ctrl Left - Go To Begin of line
+call CreateShortcut("C-Left", "0", "i")
+call CreateShortcut("C-Left", "0i", "nv")
 
-" Ctrl Left - Previous tab
-call CreateShortcut("C-Left", "gT", "inv")
+" Ctrl Right - Go To End of line
+call CreateShortcut("C-Right", "$l", "i")
+call CreateShortcut("C-Right", "$li", "nv")
 
+" Alt Left - Previous tab
+call CreateShortcut("A-Left", "gT", "inv")
 
-" j=Down
-" k=Up
-" l=Left
-" ;=Right
+" Alt Right - Next tab
+call CreateShortcut("A-Right", "gt", "inv")
+
+" Remap h-j-k-l to j-k-l-;
 nnoremap l h
 vnoremap l h
 nnoremap ; l
@@ -216,9 +255,6 @@ imap cll console.log()<Esc>==f(a
 
 " ----- Plugins settings -----
 " NERDTree
-nnoremap <C-n> :NERDTreeFocusToggle<CR>
-nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in = 1
 autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
@@ -226,6 +262,7 @@ autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | e
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Open file in new tab
 let NERDTreeMapOpenInTab = '<ENTER>'
+autocmd BufWinEnter * NERDTreeMirror
 " Add icons in NERDTree
 set guifont=DroidSansMono\ Nerd\ Font\ 11
 
@@ -292,7 +329,12 @@ let g:neural = {
 \   },
 \}
 
-" ----- Visual Multi -----
+" ----- Visual Multi settings -----
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+
+"----- Ack settings -----
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
