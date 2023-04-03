@@ -23,7 +23,8 @@ Plugin 'dense-analysis/neural'
 Plugin 'mg979/vim-visual-multi'
 Plugin 'ap/vim-css-color'
 Plugin 'lifepillar/vim-solarized8'
-Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 
@@ -202,11 +203,11 @@ call CreateShortcut("C-f", "/", "in", "noTrailingIInInsert")
 " Ctrl H - Search and Replace
 call CreateShortcut("C-h", ":%s/", "in", "noTrailingIInInsert")
 
-"Ctrl K - Search in files with ag
-call CreateShortcut("C-k", ":Ack! ", "in", "noTrailingIInInsert")
-
 " Ctrl L - Delete all lines
 call CreateShortcut("C-l", "ggdG", "in")
+
+" Ctrl G - Search content in files
+call CreateShortcut("C-g", ":Ag ", "inv")
 
 " Ctrl Q - Quit
 call CreateShortcut("C-q", ":qa!<CR>", "inv", "cmdInVisual")
@@ -219,6 +220,9 @@ call CreateShortcut("C-s", ":w<CR>", "inv")
 
 " Ctrl T - New tab
 call CreateShortcut("C-t", ":tabnew<CR>i", "inv", "noTrailingIInInsert", "cmdInVisual")
+
+" Ctrl X - Open a terminal
+call CreateShortcut('C-x', ":term<CR>", "inv")
 
 " Ctrl Z - Undo
 call CreateShortcut("C-z", "u", "in")
@@ -262,7 +266,6 @@ autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | e
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Open file in new tab
 let NERDTreeMapOpenInTab = '<ENTER>'
-autocmd BufWinEnter * NERDTreeMirror
 " Add icons in NERDTree
 set guifont=DroidSansMono\ Nerd\ Font\ 11
 
@@ -305,7 +308,7 @@ silent! helptags ALL
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'eslint'],
-\   'python': ['flake8', 'black'],
+\   'python': ['black', 'pycln'],
 \}
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 let g:ale_linters = {
@@ -334,7 +337,12 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
-"----- Ack settings -----
+" ----- FZF settings -----
+command! -bang -nargs=* Ag
+  \ call fzf#vim#grep(
+  \   'ag --column --numbers --noheading --color --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
