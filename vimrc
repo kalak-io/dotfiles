@@ -375,7 +375,7 @@ let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
 " ----- FZF settings -----
-let $FZF_DEFAULT_COMMAND = "fd --type f --exclude .git --exclude '*.lock' --ignore-file ~/.gitignore"
+let $FZF_DEFAULT_COMMAND = "fd --type f --exclude .git --exclude '*.lock' --ignore-file ~/.gitignore_global"
 
 " ----- Vim Close tag settings -----
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.vue' " Enable for vue files
