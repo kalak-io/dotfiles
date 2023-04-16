@@ -80,7 +80,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose zsh-autosuggestions zsh-syntax-highlighting virtualenv virtualenvwrapper)
+plugins=(git docker docker-compose zsh-autosuggestions zsh-syntax-highlighting virtualenv virtualenvwrapper pass)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,6 +115,7 @@ alias personal='cd ~/Documents/projects/personal/'
 alias dotfiles='cd ~/Documents/projects/personal/dotfiles/'
 alias unifai='cd ~/Documents/projects/profesional/unifai/'
 alias self-service='cd ~/Documents/projects/profesional/unifai/self-service/'
+alias ss=self-service
 alias libnorm='cd ~/Documents/projects/profesional/unifai/libnorm/'
 
 # Redirection to alternatives of command-line tools
@@ -125,7 +126,7 @@ if type sd > /dev/null 2>&1; then
   alias sed='sd'
 fi
 if type bat > /dev/null 2>&1; then
-  alias cat='bat'
+  alias cat='bat -p' # option -p disable line number and easy copy
 fi
 if type ag > /dev/null 2>&1; then
   alias ag='ag --ignore-dir=coverage --ignore-dir node_modules'
@@ -163,18 +164,23 @@ alias gti='git'
 alias pip='pip3'
 alias cd-="cd -"
 
-# Open files with specific extension in codium
-alias -s vue=codium
-alias -s js=codium
-alias -s py=codium
-alias -s md=codium
+# Avoid mistakes
+alias cp='cp -i -v'
+alias mv='mv -i -v'
+alias rm='rm -i -v'
+
+# Open files with specific extension in vim
+alias -s vue=vim
+alias -s js=vim
+alias -s py=vim
+alias -s md=vim
 
 # Clear aliases
 alias empty_trash="rm -rf $HOME/.local/share/Trash/**/*"
 alias clear_docker='docker system prune -a && docker container prune && docker image prune && docker volume prune'
 alias clear_thumbnails="find $HOME/.cache/thumbnails -type f -atime +7 -delete"
 alias clear_history="echo -n '' > $HOME/.*_history"
-alias clear_vim="rm -rf $HOME/.vim/tmp_dirs/undodir/*"
+alias clear_vim="rm -rf $HOME/.vim/undodir/*"
 alias clear_journalctl="sudo journalctl --vacuum-time=4weeks"
 
 # The next line updates PATH for the Google Cloud SDK.
