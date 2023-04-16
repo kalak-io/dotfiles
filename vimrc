@@ -4,27 +4,46 @@ set nocompatible
 
 filetype off
 
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+" You should not turn this setting on if you wish to use ALE as a completion
+" source for other completion plugins, like Deoplete.
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
+" ----- UI plugins -----
+Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'lifepillar/vim-solarized8'
+Plugin 'thaerkh/vim-indentguides'
+
+Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ryanoasis/vim-devicons'
+" Plugin 'preservim/nerdcommenter'
 Plugin 'scrooloose/syntastic'
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'ycm-core/YouCompleteMe'
+Plugin 'dense-analysis/ale'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'mg979/vim-visual-multi'
+Plugin 'ryanoasis/vim-devicons'
 Plugin 'Raimondi/delimitMate'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tomtom/tcomment_vim'
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'dense-analysis/ale'
-Plugin 'dense-analysis/neural'
-Plugin 'mg979/vim-visual-multi'
 Plugin 'ap/vim-css-color'
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+" Plugin 'thaerkh/vim-workspace'
+Plugin 'dbarsam/vim-rainbow-parentheses'
+Plugin 'ervandew/supertab'
+Plugin 'alvan/vim-closetag'
+" Plugin 'tpope/vim-markdown'
+" ----- AI plugins -----
+" Plugin 'tucnak/vim-gpt'
+" Plugin 'dense-analysis/neural'
 
 call vundle#end()
 
@@ -56,8 +75,8 @@ set nobackup
 set noswapfile
 set nowb
 
-" Enable hidden buffers
-set hidden
+" Disable hidden buffers
+set nohidden
 
 " History
 set history=100
@@ -72,9 +91,9 @@ set matchtime=3
 
 " Performance options
 set complete-=i
-set lazyredraw
-" Faster refraw
+" Faster redraw
 set ttyfast
+set lazyredraw
 
 " Text Rendering options
 set encoding=UTF-8
@@ -93,8 +112,9 @@ set tm=500
 set updatetime=1000
 
 " Prevent lag when hitting escape
-set ttimeoutlen=0
-set timeoutlen=1000
+set ttimeout
+set ttimeoutlen=200
+set timeoutlen=200
 au InsertEnter * set timeout
 au InsertLeave * set notimeout
 
@@ -107,8 +127,17 @@ set autoread
 au FocusGained,BufEnter * checktime
 
 " Better command-line completion
+" Enable auto completion menu after pressing TAB.
 set wildmenu
+set completeopt=menu
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*.lock
 
+
+" Enable check on spl
 set spell
 
 " Preserve indentation when paste code
@@ -119,11 +148,11 @@ set number
 set relativenumber
 set ruler
 set nowrap
-set cursorline
+" set cursorline " Disabled to preserve performance
 
 set laststatus=2
 
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 set mouse=a
 
 set showcmd
@@ -145,13 +174,11 @@ else
 endif
 colorscheme solarized8
 let g:solarized_termcolors=256
+let g:solarized_termtrans=1
 
 " Splits
 set splitbelow
 set splitright
-
-" Ignore some files or directories
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!g'\"" | endif
@@ -177,16 +204,19 @@ function! CreateShortcut(keys, cmd, where, ...)
   endif
 endfunction
 
-" Usefull shortcuts to enter insert mode
-nnoremap <CR> i<CR>
-nnoremap <Backspace> i<Backspace>
-nnoremap <Space> i<Space>
+" ----- Shortcuts -----
+" Enter
+call CreateShortcut("CR", "i<CR>", "nv")
+" Backspace
+call CreateShortcut("Backspace", "i<Backspace>", "nv")
+"Space
+call CreateShortcut("Space", "i<Space>", "nv")
 
-" " Home - Go To Begin of file
-" call CreateShortcut("Home", "gg", "inv")
-"
-" " End - Go To End of file
-" call CreateShortcut("End", "G", "inv")
+" Home - Go To Begin of file
+call CreateShortcut("Home", "gg", "inv")
+
+" End - Go To End of file
+call CreateShortcut("End", "G", "inv")
 
 " Ctrl A - Go To Begin of line
 call CreateShortcut("C-a", "0", "i")
@@ -195,7 +225,8 @@ call CreateShortcut("C-a", "0i", "nv")
 " Ctrl C - Close current tab
 call CreateShortcut("C-c", ":tabclose<CR>", "inv")
 
-" Ctrl D - Multi visual edit
+" Ctrl D - Previous buffer
+call CreateShortcut("C-d", ":bp<CR>", "inv")
 
 " Ctrl E - open/close NERDTree
 call CreateShortcut("C-e", ":NERDTreeToggle<CR>", "inv")
@@ -206,11 +237,12 @@ call CreateShortcut("C-f", "/", "in", "noTrailingIInInsert")
 " Ctrl H - Search and Replace
 call CreateShortcut("C-h", ":%s/", "in", "noTrailingIInInsert")
 
-" Ctrl L - Delete all lines
-call CreateShortcut("C-l", "ggdG", "in")
+" Ctrl L - Redraw screen to also turn off search highlightuntil the next
+" search
+call CreateShortcut("C-l", ":nohl<CR>", "in")
 
 " Ctrl G - Search content in files
-call CreateShortcut("C-g", ":Ag ", "inv")
+call CreateShortcut("C-g", ":Ag <CR>", "inv")
 
 " Ctrl P - Search a file
 call CreateShortcut("C-p", ":Files .<CR>", "inv")
@@ -227,8 +259,17 @@ call CreateShortcut("C-s", ":w<CR>", "inv")
 " Ctrl T - New tab
 call CreateShortcut("C-t", ":tabnew<CR>i", "inv", "noTrailingIInInsert", "cmdInVisual")
 
+" Ctrl U - Next buffer
+call CreateShortcut("C-u", ":bn<CR>", "inv")
+
+" Ctrl W - Search Ag the word under the cursor
+call CreateShortcut('C-w', ":Ag <C-R><C-W><CR>", "in")
+
 " Ctrl X - Open a terminal
 call CreateShortcut('C-x', ":term<CR>", "inv")
+
+" Ctrl Y - Previous buffer
+call CreateShortcut("C-y", ":b#<CR>", "inv")
 
 " Ctrl Z - Undo
 call CreateShortcut("C-z", "u", "in")
@@ -254,20 +295,19 @@ call CreateShortcut("A-Left", "gT", "inv")
 " Alt Right - Next tab
 call CreateShortcut("A-Right", "gt", "inv")
 
-" Remap h-j-k-l to j-k-l-;
-nnoremap l h
-vnoremap l h
-nnoremap ; l
-vnoremap ; l
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
 
 " ----- Abbreviations -----
-imap cll console.log()<Esc>==f(a
+ab cll console.log();<Esc>==f(a
 
 " ----- Plugins settings -----
-" NERDTree
-" Start NERDTree. If a file is specified, move the cursor to its window.
-autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+" ----- NERDTree settigs -----
+" " Start NERDTree when Vim is opened and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Open file in new tab
@@ -276,6 +316,8 @@ let NERDTreeMapOpenInTab = '<ENTER>'
 set guifont=DroidSansMono\ Nerd\ Font\ 11
 
 let g:nerdtree_tabs_open_on_console_startup=0
+" Have nerdtree ignore certain files and directories.
+let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 
 " ----- scrooloose/syntastic settings -----
 let g:syntastic_error_symbol = '✘'
@@ -306,6 +348,7 @@ packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+let g:ale_linters_explicit = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'eslint'],
@@ -313,25 +356,18 @@ let g:ale_fixers = {
 \}
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 let g:ale_linters = {
-\   'vue': ['eslint', 'vls']
+\   'python': ['flake8'],
+\   'javascript': ['eslint'],
+\   'vue': ['eslint', 'vls'],
 \}
+" Disable linting when opening a new file
+let g:ale_lint_on_enter = 0
+" Enable linting when saving a file
+let g:ale_lint_on_save = 1
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
-" Enable completion where available.
-" This setting must be set before ALE is loaded.
-" You should not turn this setting on if you wish to use ALE as a completion
-" source for other completion plugins, like Deoplete.
-let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
-
-" ----- Neural settings -----
-let g:neural = {
-\   'source': {
-\       'openai': {
-\           'api_key': $OPENAI_API_KEY,
-\       },
-\   },
-\}
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
 
 " ----- Visual Multi settings -----
 let g:VM_maps = {}
@@ -339,11 +375,7 @@ let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
 " ----- FZF settings -----
-command! -bang -nargs=* Ag
-  \ call fzf#vim#grep(
-  \   'ag --column --numbers --noheading --color --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+let $FZF_DEFAULT_COMMAND = "fd --type f --exclude .git --exclude '*.lock' --ignore-file ~/.gitignore"
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+" ----- Vim Close tag settings -----
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.vue' " Enable for vue files
