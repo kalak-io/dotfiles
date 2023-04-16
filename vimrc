@@ -257,7 +257,7 @@ call CreateShortcut("C-r", "<C-r>", "in")
 call CreateShortcut("C-s", ":w<CR>", "inv")
 
 " Ctrl T - New tab
-call CreateShortcut("C-t", ":tabnew<CR>i", "inv", "noTrailingIInInsert", "cmdInVisual")
+call CreateShortcut('C-t', ":term<CR>", "inv")
 
 " Ctrl U - Next buffer
 call CreateShortcut("C-u", ":bn<CR>", "inv")
@@ -265,8 +265,8 @@ call CreateShortcut("C-u", ":bn<CR>", "inv")
 " Ctrl W - Search Ag the word under the cursor
 call CreateShortcut('C-w', ":Ag <C-R><C-W><CR>", "in")
 
-" Ctrl X - Open a terminal
-call CreateShortcut('C-x', ":term<CR>", "inv")
+" Ctrl X - Save and close
+call CreateShortcut('C-x', ":x<CR>", "inv")
 
 " Ctrl Y - Previous buffer
 call CreateShortcut("C-y", ":b#<CR>", "inv")
