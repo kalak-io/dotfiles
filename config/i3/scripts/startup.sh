@@ -15,3 +15,4 @@ then
     codium $HOME/Documents/projects/profesional/unifai/self-service &
     slack &
 fi
+exit 0
