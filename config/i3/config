@@ -28,13 +28,13 @@ exec --no-startup-id dex --autostart --environment i3
 # they are included here as an example. Modify as you see fit.
 
 # System
-set $I3Lock i3lock -c 04090e --ignore-empty-password --show-failed-attempts --nofork && sleep 1
+set $I3Lock i3lock -c 04090e --ignore-empty-password --show-failed-attempts --nofork
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $I3Lock, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $I3Lock && systemctl hibernate, mode "default"
+    bindsym h exec --no-startup-id $I3Lock $$ sleep 1 && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
 
@@ -253,9 +253,9 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 # decrease screen brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 ## Media player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id xdotool key --window $(xdotool search --classname spotify-tui) space
+bindsym XF86AudioNext exec --no-startup-id xdotool key --window $(xdotool search --classname spotify-tui) n
+bindsym XF86AudioPrev exec --no-startup-id xdotool key --window $(xdotool search --classname spotify-tui) p
 
 ## Screenshots
 bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
@@ -276,7 +276,7 @@ exec_always --no-startup-id numlockx on
 # udiskie
 exec --no-startup-id udiskie --automount --notify --smart-tray
 # Set startup volume
-exec_always --no-startup-id pactl set-sink-volume 0 '20%'
+exec_always --no-startup-id pactl set-sink-volume 0 '100%'
 # Set numlock
 exec_always --no-startup-id numlockx on
 # Disable beeps
@@ -296,6 +296,7 @@ assign [class="^Ledger Live$"] $ws6
 assign [class="^Cypress$"] $ws7
 assign [title="^test_e2e - Google Chrome$"] $ws7
 for_window [class="^Spotify$"] move --no-auto-back-and-forth to workspace $ws9
+for_window [class="^spotify-tui$"] move --no-auto-back-and-forth to workspace $ws9
 assign [class="^Slack$"] $ws10
 
 ## Assign workspace by screen
@@ -325,5 +326,5 @@ for_window [class="Arandr"] floating enable
 
 # Startup applications
 exec --no-startup-id firefox
-exec --no-startup-id sleep 10; spotify
+exec --no-startup-id alacritty --class spotify-tui -e "spt"
 exec --no-startup-id $scripts/startup.sh
