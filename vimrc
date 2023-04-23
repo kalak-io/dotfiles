@@ -24,9 +24,7 @@ Plugin 'thaerkh/vim-indentguides'
 
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'preservim/nerdcommenter'
 Plugin 'scrooloose/syntastic'
-"Plugin 'ycm-core/YouCompleteMe'
 Plugin 'dense-analysis/ale'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
@@ -36,14 +34,10 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'ap/vim-css-color'
-" Plugin 'thaerkh/vim-workspace'
 Plugin 'dbarsam/vim-rainbow-parentheses'
 Plugin 'ervandew/supertab'
 Plugin 'alvan/vim-closetag'
-" Plugin 'tpope/vim-markdown'
 " ----- AI plugins -----
-" Plugin 'tucnak/vim-gpt'
-" Plugin 'dense-analysis/neural'
 
 call vundle#end()
 
