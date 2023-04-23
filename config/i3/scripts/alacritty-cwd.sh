@@ -24,6 +24,7 @@ then
     if [[ "$PID" == "" ]]
     then
         alacritty $@
+        exit 0
     fi
     # Get current directory of child. The first child should be the shell.
     pushd "/proc/${CHILD_PID}/cwd"
@@ -33,4 +34,5 @@ then
     alacritty --working-directory $SHELL_CWD $@
 else
     alacritty $@
+    exit 0
 fi
