@@ -296,7 +296,10 @@ noremap <Right> <Nop>
 
 
 " ----- Abbreviations -----
-ab cll console.log();<Esc>==f(a
+iab <buffer> con@ console.log();<Left><Left>
+iab <buffer> pr@ print()<Left>
+iab heigth height
+iab lenght length
 
 " ----- Plugins settings -----
 " ----- NERDTree settigs -----
