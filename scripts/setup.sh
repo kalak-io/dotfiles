@@ -11,3 +11,6 @@ ln -s ../config/redshift $HOME/.config/redshift
 ln -s ../gitconfig $HOME/.gitconfig
 ln -s ../zshrc $HOME/.zshrc
 ln -s ../Xresources $HOME/.Xresources
+
+# As root
+ln -s ../config/ly/config.ini /etc/ly/config.ini
