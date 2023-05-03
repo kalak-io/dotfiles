@@ -23,3 +23,6 @@ Edit the `mkinitcpio.conf` file and recreate image
 ```
 mkinitcpio -P
 ```
+
+### Obtain keygrip of the master key (e.g.: for pam-gnupg)
+`gpg -K --with-keygrip`
