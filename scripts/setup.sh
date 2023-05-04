@@ -14,3 +14,4 @@ ln -s ../Xresources $HOME/.Xresources
 
 # As root
 ln -s ../config/ly/config.ini /etc/ly/config.ini
+ln -s ../config/pacman.conf /etc/pacman.conf
