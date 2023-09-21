@@ -1,18 +1,18 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Applications/:$HOME/.yarn/bin/:/usr/lib/ccache/bin/:$PATH
-source /usr/share/nvm/init-nvm.sh
-eval "$(zoxide init zsh)"
+# source /usr/share/nvm/init-nvm.sh
+# eval "$(zoxide init zsh)"
 
-set -a # automatically export all variables
-source .env
-set +a
+# set -a # automatically export all variables
+# source .env
+# set +a
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
-export TERMINAL=alacritty
-export TERM=alacritty
+#export TERMINAL=alacritty
+#export TERM=alacritty
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -111,12 +111,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Navigation
-alias personal='cd ~/Documents/projects/personal/'
-alias dotfiles='cd ~/Documents/projects/personal/dotfiles/'
-alias unifai='cd ~/Documents/projects/profesional/unifai/'
-alias self-service='cd ~/Documents/projects/profesional/unifai/self-service/'
+alias perso='cd ~/Documents/perso/'
+alias dotfiles='cd ~/Documents/perso/dotfiles/'
+alias unifai='cd ~/Documents/pro/unifai/'
+alias self-service='cd ~/Documents/pro/self-service/'
 alias ss=self-service
-alias libnorm='cd ~/Documents/projects/profesional/unifai/libnorm/'
+alias libnorm='cd ~/Documents/pro/libnorm/'
 
 # Redirection to alternatives of command-line tools
 if type exa > /dev/null 2>&1; then
@@ -188,3 +188,7 @@ if [ -f '~/.google-cloud-sdk/path.zsh.inc' ]; then . '~/.google-cloud-sdk/path.z
 
 # The next line enables shell command completion for gcloud.
 if [ -f '~/.google-cloud-sdk/completion.zsh.inc' ]; then . '~/.google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
