@@ -1,19 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Applications/:$HOME/.yarn/bin/:/usr/lib/ccache/bin/:$PATH
-# source /usr/share/nvm/init-nvm.sh
-# eval "$(zoxide init zsh)"
-
-# set -a # automatically export all variables
-# source .env
-# set +a
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
-#export TERMINAL=alacritty
-#export TERM=alacritty
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -80,11 +72,16 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose zsh-autosuggestions zsh-syntax-highlighting virtualenv virtualenvwrapper pass)
+plugins=(docker docker-compose git gh nvm pass sudo thefuck you-should-use zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# Enable control-s and control-q
+stty start undef
+stty stop undef
+setopt noflowcontrol
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -92,11 +89,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='nvim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -110,85 +107,61 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Navigation
-alias perso='cd ~/Documents/perso/'
-alias dotfiles='cd ~/Documents/perso/dotfiles/'
-alias unifai='cd ~/Documents/pro/unifai/'
-alias self-service='cd ~/Documents/pro/self-service/'
-alias ss=self-service
-alias libnorm='cd ~/Documents/pro/libnorm/'
+# Substitution for Rust alternatives of base utils
+if type ag > /dev/null 2>&1; then
+  alias ag='ag --ignore-dir coverage --ignore-dir node_modules'
+fi
 
-# Redirection to alternatives of command-line tools
 if type exa > /dev/null 2>&1; then
   alias ls='exa --icons'
 fi
+
 if type sd > /dev/null 2>&1; then
   alias sed='sd'
 fi
+
+
 if type bat > /dev/null 2>&1; then
-  alias cat='bat -p' # option -p disable line number and easy copy
+  alias cat='bat -p'
 fi
-if type ag > /dev/null 2>&1; then
-  alias ag='ag --ignore-dir=coverage --ignore-dir node_modules'
+
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
 fi
-if type clipboard > /dev/null 2>&1; then
-  alias clipboard='cb'
+
+if type fuck > /dev/null 2>&1; then
+  alias f='fuck --yeah'
 fi
+
 if type tldr > /dev/null 2>&1; then
   alias man='tldr --os=linux'
 fi
-if type ouch > /dev/null 2>&1; then
-  alias compact='ouch compress'
-  alias extract='ouch decompress'
-fi
-if type sd  > /dev/null 2>&1; then
-  alias replace='sd'
-fi
-if type zoxide  > /dev/null 2>&1; then
-  alias cd='z'
-fi
-if ! type bc > /dev/null  2>&1; then
-  alias bc="python"
-fi
-
-# Custom command
-function mkcd() { mkdir -p "$@" && cd "$_"; }
-alias mkcd="mkcd"
 
 # Common Mistakes
 alias ct='cat'
 alias im='vim'
+alias vi,='vim'
+alias nvi,='nvim'
 alias s='ls'
-alias gi='git'
-alias gti='git'
+alias gi='git'
 alias pip='pip3'
 alias cd-="cd -"
 
-# Avoid mistakes
-alias cp='cp -i -v'
-alias mv='mv -i -v'
-alias rm='rm -i -v'
+# Prefix command-line
+alias -s vue=nvim
+alias -s js=nvim
+alias -s ts=nvim
+alias -s py=nvim
 
-# Open files with specific extension in vim
-alias -s vue=vim
-alias -s js=vim
-alias -s py=vim
-alias -s md=vim
+# Common navigation
+alias lp="cd ~/Documents/perso/lineup"
 
-# Clear aliases
-alias empty_trash="rm -rf $HOME/.local/share/Trash/**/*"
-alias clear_docker='docker system prune -a && docker container prune && docker image prune && docker volume prune'
-alias clear_thumbnails="find $HOME/.cache/thumbnails -type f -atime +7 -delete"
-alias clear_history="echo -n '' > $HOME/.*_history"
-alias clear_vim="rm -rf $HOME/.vim/undodir/*"
-alias clear_journalctl="sudo journalctl --vacuum-time=4weeks"
+# Common command
+function mkcd() { mkdir -p "$@" && cd "$_"; }
+alias mkcd="mkcd"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/.google-cloud-sdk/path.zsh.inc' ]; then . '~/.google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '~/.google-cloud-sdk/completion.zsh.inc' ]; then . '~/.google-cloud-sdk/completion.zsh.inc'; fi
-
+# NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
