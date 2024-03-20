@@ -5,7 +5,7 @@
 require("lazy").setup({
   -- Colorscheme NeoSolarized
   {
-  "Tsuzat/NeoSolarized.nvim",
+    "Tsuzat/NeoSolarized.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
@@ -20,11 +20,11 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make" },
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },  
-        })
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make" },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },  
+      })
     end
   },
   -- LSP
@@ -55,11 +55,11 @@ require("lazy").setup({
   {
     'nvimdev/lspsaga.nvim',
     config = function()
-        require('lspsaga').setup({})
+      require('lspsaga').setup({})
     end,
     dependencies = {
-        'nvim-treesitter/nvim-treesitter', -- optional
-        'nvim-tree/nvim-web-devicons'     -- optional
+      'nvim-treesitter/nvim-treesitter', -- optional
+      'nvim-tree/nvim-web-devicons'     -- optional
     }
   },
   -- nvim-ts-autotag
@@ -79,6 +79,19 @@ require("lazy").setup({
   -- Vim Visual Multi
   {
     "mg979/vim-visual-multi"
+  },
+  -- Codeium
+  {
+    "Exafunction/codeium.vim",
+    event = 'BufEnter'
+  },
+  --Comment
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
   }
 })
 
