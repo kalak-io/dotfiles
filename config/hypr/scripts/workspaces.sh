@@ -1,37 +1,43 @@
 #!/bin/bash
 
-lock_and_suspend() {
-  # Suspend the system (locking is manage by hypridle)
-  echo "Suspending the system..."
+move_to_monitor() {
+  if [ ${1+x} ]; then
+    local monitor=$1
+    for (( i=1; i<=5; i++ )); do
+      hyprctl dispatch workspace $i
+      hyprctl dispatch movecurrentworkspacetomonitor ${monitor}
+    done
+  fi
+}
+
+is_laptop_monitor() {
+  if hyprctl monitors | grep -q "BOE 0x0BCA"; then
+    return 1
+  fi
+}
+
+set_laptop_monitor() {
+  hyprctl keyword monitor "desc:BOE 0x0BCA,preferred,auto,1.566667"
+  move_to_monitor "desc: BOE 0x0BCA"
+}
+
+suspend_laptop() {
   systemctl suspend
 }
 
-move_to_external_monitor() {
-  for (( i=1; i<=5; i++ )); do
-    hyprctl dispatch workspace $i
-    hyprctl dispatch movecurrentworkspacetomonitor +1
-  done
-}
-
-move_from_external_monitor() {
-  for (( i=1; i<=5; i++ )); do
-    hyprctl dispatch workspace $i
-    hyprctl dispatch movecurrentworkspacetomonitor -1
-  done
-}
-
 adjust_workspaces() {
-  if [ "$1" == "1" ] && [ "$2" == "closed" ]; then
-      lock_and_suspend
-  elif [ "$1" == "2" ]; then
-    if [ "$2" == "open" ]; then
-      move_from_external_monitor
-      hyprctl keyword monitor desc:"BOE 0x0BCA",preferred,auto,1
-    elif [ "$2" == "closed" ]; then
-      move_to_external_monitor
-      hyprctl keyword monitor desc:"BOE 0x0BCA",disable
-    fi
+  hyprctl reload
+  is_laptop_monitor
+  is_laptop=$?
+  if [ "$1" -eq 1 ] && [ "$is_laptop" -eq 1 ] && [ "$2" == "closed" ]; then
+    suspend_laptop_monitor
+  elif [ "$1" -eq 1 ] && [ "$is_laptop" -ne 1 ] && [ "$2" == "open" ]; then
+    set_laptop_monitor
+  elif [ "$1" -eq 2 ] && [ "$2" == "closed" ]; then
+    move_to_monitor "desc:Dell Inc. DELL P2212H V0VCM1CR1PAS"
+    hyprctl keyword monitor "desc:BOE 0x0BCA,disable"
   fi
+
   hyprctl dispatch workspace 1
 }
 
@@ -44,7 +50,6 @@ main() {
     laptop_status="closed"
   fi
 
-  adjust_workspaces "$num_monitors" "$laptop_status"
+  adjust_workspaces ${num_monitors} ${laptop_status}
 }
-
 main
