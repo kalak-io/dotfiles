@@ -16,9 +16,14 @@ is_laptop_monitor() {
   fi
 }
 
-set_laptop_monitor() {
+enable_laptop_monitor() {
   hyprctl keyword monitor "desc:BOE 0x0BCA,preferred,auto,1.566667"
-  move_to_monitor "desc: BOE 0x0BCA"
+  #move_to_monitor "desc: BOE 0x0BCA"
+}
+
+disable_laptop_monitor() {
+  move_to_monitor "desc:Dell Inc. DELL P2212H V0VCM1CR1PAS"
+  hyprctl keyword monitor "desc:BOE 0x0BCA,disable"
 }
 
 suspend_laptop() {
@@ -30,12 +35,11 @@ adjust_workspaces() {
   is_laptop_monitor
   is_laptop=$?
   if [ "$1" -eq 1 ] && [ "$is_laptop" -eq 1 ] && [ "$2" == "closed" ]; then
-    suspend_laptop_monitor
+    suspend_laptop
   elif [ "$1" -eq 1 ] && [ "$is_laptop" -ne 1 ] && [ "$2" == "open" ]; then
-    set_laptop_monitor
+    enable_laptop_monitor
   elif [ "$1" -eq 2 ] && [ "$2" == "closed" ]; then
-    move_to_monitor "desc:Dell Inc. DELL P2212H V0VCM1CR1PAS"
-    hyprctl keyword monitor "desc:BOE 0x0BCA,disable"
+    disable_laptop_monitor
   fi
 
   hyprctl dispatch workspace 1
