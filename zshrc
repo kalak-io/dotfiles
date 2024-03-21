@@ -154,7 +154,7 @@ alias -s ts=nvim
 alias -s py=nvim
 
 # Common navigation
-alias lp="cd ~/Documents/perso/lineup"
+alias lp="cd ~/Repos/lineup"
 
 # Common command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
