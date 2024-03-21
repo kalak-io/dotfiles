@@ -81,11 +81,7 @@
         "default": ""
       },
       "on-scroll-up": "hyprctl dispatch workspace e+1",
-      "on-scroll-down": "hyprctl dispatch workspace e-1",
-      "persistent-workspaces": {
-        "eDP-1": [ 1, 2, 3, 4, 5 ], 
-        "DP-1": [ 6, 7, 8, 9, 0 ],
-      }
+      "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
     "memory": {
       "interval": 30,
