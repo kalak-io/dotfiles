@@ -4,8 +4,7 @@ move_to_monitor() {
   if [ ${1+x} ]; then
     local monitor=$1
     for (( i=1; i<=5; i++ )); do
-      hyprctl dispatch workspace $i
-      hyprctl dispatch movecurrentworkspacetomonitor ${monitor}
+      hyprctl dispatch moveworkspacetomonitor "${i} ${monitor}"
     done
   fi
 }
