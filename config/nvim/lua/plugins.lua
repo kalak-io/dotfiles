@@ -20,7 +20,7 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make", "bash" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },  
