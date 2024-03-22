@@ -6,6 +6,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export VISUAL=vim
 export EDITOR=/usr/bin/nvim
+export RANGER_LOAD_DEFAULT_RC=FALSE
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -110,6 +111,10 @@ setopt noflowcontrol
 # Substitution for Rust alternatives of base utils
 if type ag > /dev/null 2>&1; then
   alias ag='ag --ignore-dir coverage --ignore-dir node_modules'
+fi
+
+if type rg > /dev/null 2>&1; then
+  alias rg='rg --hidden'
 fi
 
 if type exa > /dev/null 2>&1; then
