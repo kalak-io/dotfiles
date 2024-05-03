@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.yarn/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -11,8 +11,8 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="pygmalion-virtualenv"
-
+# ZSH_THEME="pygmalion-virtualenv"
+ZSH_THEME=
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -63,7 +63,24 @@ ENABLE_CORRECTION="true"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HISTFILE="$HOME/.zsh_history"
+# Display timestamps for each command
+HIST_STAMPS="yyyy-mm-dd"
+
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+# Ignore these commands in history
+HISTORY_IGNORE="(ls|pwd|cd)*"
+
+# Write the history file in the ':start:elapsed;command' format.
+setopt EXTENDED_HISTORY
+
+# Do not record an event starting with a space.
+setopt HIST_IGNORE_SPACE
+
+# Don't store history commands
+setopt HIST_NO_STORE
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -73,8 +90,9 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(docker docker-compose git gh nvm pass sudo thefuck zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(docker docker-compose git gh nvm pass rust sudo thefuck zsh-autosuggestions zsh-syntax-highlighting)
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -111,6 +129,8 @@ setopt noflowcontrol
 # Substitution for Rust alternatives of base utils
 if type ag > /dev/null 2>&1; then
   alias ag='ag --ignore-dir coverage --ignore-dir node_modules'
+else
+  alias ag="rg"
 fi
 
 if type rg > /dev/null 2>&1; then
@@ -148,7 +168,7 @@ alias im='vim'
 alias vi,='vim'
 alias nvi,='nvim'
 alias s='ls'
-alias gi='git'
+alias gi='git'
 alias pip='pip3'
 alias cd-="cd -"
 
@@ -160,13 +180,22 @@ alias -s py=nvim
 
 # Common navigation
 alias lp="cd ~/Repos/lineup"
+alias ui="cd ~/Repos/uiversal"
 
 # Common command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
 alias mkcd="mkcd"
+# function replace() { ag -0 -l $1 | xargs -0 sed -i 's%$1%$2%g' }
+# alias replace="replace"
+
+# Cargo
+alias cb="cargo build"
+alias cr="cargo run"
+alias ct="cargo test"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+eval "$(starship init zsh)"

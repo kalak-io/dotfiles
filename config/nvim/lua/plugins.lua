@@ -20,7 +20,7 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make", "bash" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "vue", "javascript", "html", "css", "python", "dockerfile", "make", "bash", "rust" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },  
@@ -92,6 +92,34 @@ require("lazy").setup({
       -- add any options here
     },
     lazy = false,
+  },
+  --Lastplace
+  {
+    "farmergreg/vim-lastplace"
+  },
+  --Nvim-tree
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = true,
+        },
+      }
+    end
   }
 })
-

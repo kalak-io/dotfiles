@@ -31,12 +31,14 @@ window#waybar.empty #window {
   box-shadow: none;
   text-shadow: none;
   padding: 0px;
-  border-radius: 9px;
+  border-radius: 25px;
   padding-left: 4px;
   padding-right: 4px;
 }
 
 #workspaces button.active {
+  background-color: #ffffff;
+  color: #212427;
   animation: gradient_f 20s ease-in infinite;
   transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }

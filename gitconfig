@@ -30,3 +30,5 @@
 	defaultBranch = develop
 [core]
 	excludesFile = /home/kalak/.gitignore_global
+[push]
+  autoSetupRemote = true

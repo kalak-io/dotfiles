@@ -30,7 +30,6 @@ suspend_laptop() {
 }
 
 adjust_workspaces() {
-  hyprctl reload
   is_laptop_monitor
   is_laptop=$?
   if [ "$1" -eq 1 ] && [ "$is_laptop" -eq 1 ] && [ "$2" == "closed" ]; then

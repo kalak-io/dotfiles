@@ -31,6 +31,9 @@ map("n", "<A-Down>", ":m+<CR>")
 map("v", "<A-Down>", ":m'>+<CR>")
 
 -- CONTROLS
+-- Ctrl E - Open explorer
+map("", "<C-e>", ":NvimTreeToggle<CR>")
+map("i", "<C-e>", "<Esc>:NvimTreeToggle<CR>")
 -- Ctrl F - Find
 map("", "<C-f>", ":Telescope live_grep<CR>")
 map("i", "<C-f>", "<Esc>:Telescope live_grep<CR>")
