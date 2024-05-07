@@ -181,6 +181,8 @@ alias -s py=nvim
 # Common navigation
 alias lp="cd ~/Repos/lineup"
 alias ui="cd ~/Repos/uiversal"
+alias sdm="cd ~/Repos/sdm"
+alias tarot="cd ~/Repos/tarot-cli"
 
 # Common command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
