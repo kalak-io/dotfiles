@@ -82,6 +82,10 @@ setopt HIST_IGNORE_SPACE
 # Don't store history commands
 setopt HIST_NO_STORE
 
+setopt HIST_FIND_NO_DUPS
+# following should be turned off, if sharing history via setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
