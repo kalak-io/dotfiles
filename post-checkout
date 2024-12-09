@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# $1 - previous HEAD
+# $2 - new HEAD
+# $3 - flag indicating if it's a branch checkout (1) or a file checkout (0)
+
+# Check if this is a branch checkout (not a file checkout)
+if [ "$3" = "1" ]; then
+    # Get the current branch name
+    BRANCH=$(git symbolic-ref --short HEAD)
+    # Pull the latest changes
+    git pull origin "$BRANCH"
+fi
