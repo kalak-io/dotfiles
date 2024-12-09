@@ -1,0 +1,19 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/solarized_dark.toml" 
+]
+
+[window]
+startup_mode = "Fullscreen"
+
+[scrolling]
+history = 100000
+
+[selection]
+save_to_clipboard = true
+
+[terminal]
+shell = "/usr/bin/zsh"
+
+[mouse]
+hide_when_typing = true
