@@ -16,6 +16,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 # Zsh-history
 git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+# Zsh-bat
+git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat
 
 
 # Starship
@@ -57,7 +59,7 @@ makepkg -si
 paru -S spotify windsurf powerpill
 
 # Install professional AUR packages
-paru -S slack-desktop 1password 1password-cli ngrok
+paru -S slack-desktop 1password 1password-cli ngrok postman-bin
 
 # Enable TRIM
 sudo systemctl enable --now fstrim.timer
