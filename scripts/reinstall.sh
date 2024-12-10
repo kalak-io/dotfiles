@@ -1,6 +1,6 @@
 sudo pacman -Syy
 
-sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache rustup alacritty -y
+sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache rustup alacritty networkmanager pre-commit -y
 
 # Configure UFW
 sudo ufw enable
@@ -27,12 +27,19 @@ curl -sSL https://install.python-poetry.org | python3 -
 # Clear installation
 sudo pacman -R gnome-tour gnome-console gnome-music
 
+# Enable NetworkManager
+sudo systemctl enable NetworkManager.service
+
 # Enable Reflector
 sudo systemctl enable reflector.service
 sudo systemctl enable reflector.timer
 
 # Enable Docker
 sudo systemctl enable docker.service
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
 
 # Enable power-profiles-daemon
 sudo systemctl enable power-profiles-daemon
