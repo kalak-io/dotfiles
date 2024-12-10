@@ -57,7 +57,7 @@ makepkg -si
 paru -S spotify windsurf powerpill
 
 # Install professional AUR packages
-paru -S slack-desktop 1password 1password-cli
+paru -S slack-desktop 1password 1password-cli ngrok
 
 # Enable TRIM
 sudo systemctl enable --now fstrim.timer
