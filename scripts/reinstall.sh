@@ -1,6 +1,6 @@
 sudo pacman -Syy
 
-sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache -y
+sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache rustup -y
 
 # Configure UFW
 sudo ufw enable
@@ -36,6 +36,9 @@ sudo systemctl enable docker.service
 
 # Enable power-profiles-daemon
 sudo systemctl enable power-profiles-daemon
+
+# Rustup
+rustup default stable
 
 # Install paru
 cd /tmp
