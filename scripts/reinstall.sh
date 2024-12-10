@@ -1,6 +1,6 @@
 sudo pacman -Syy
 
-sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache rustup -y
+sudo pacman -S --needed base-devel bat eza docker docker-compose ripgrep python3 python-pip pyenv git git-delta vim curl wget zsh firefox ufw direnv fprintd rustup reflector power-profiles-daemon pacman-contrib rsync sccache rustup alacritty -y
 
 # Configure UFW
 sudo ufw enable
