@@ -81,6 +81,7 @@ git config --global delta.navigate true
 git config --global delta.side-by-side true
 git config --global merge.conflictStyle zdiff3
 git config --global --type bool push.autoSetupRemote true
+git config --global pull.rebase true
 
 # Configure Alacritty
 mkdir -p ~/.config/alacritty/themes
