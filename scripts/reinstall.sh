@@ -90,7 +90,7 @@ git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/theme
 echo '
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/{theme}.toml"
+    "~/.config/alacritty/themes/themes/solarized_dark.toml"
 ]
 
 [window]
