@@ -27,7 +27,7 @@ curl -sS https://starship.rs/install.sh | sh
 curl -sSL https://install.python-poetry.org | python3 -
 
 # Clear installation
-sudo pacman -R gnome-tour gnome-console gnome-music
+sudo pacman -R gnome-tour gnome-console gnome-music gnome-contacts gnome-maps gnome-calendar gnome-calculator gnome-software gnome-weather gnome-text-editor gnome-clocks
 
 # Enable NetworkManager
 sudo systemctl enable NetworkManager.service
