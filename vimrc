@@ -38,6 +38,7 @@ Plugin 'dbarsam/vim-rainbow-parentheses'
 Plugin 'ervandew/supertab'
 Plugin 'alvan/vim-closetag'
 " ----- AI plugins -----
+Plugin 'Exafunction/codeium.vim'
 
 call vundle#end()
 
@@ -216,16 +217,16 @@ call CreateShortcut("End", "G", "inv")
 call CreateShortcut("C-a", "0", "i")
 call CreateShortcut("C-a", "0i", "nv")
 
+" Ctrl B - open/close NERDTree
+call CreateShortcut("C-b", ":NERDTreeToggle<CR>", "inv")
+
 " Ctrl C - Close current tab
 call CreateShortcut("C-c", ":tabclose<CR>", "inv")
 
 " Ctrl D - Previous buffer
 call CreateShortcut("C-d", ":bp<CR>", "inv")
 
-" Ctrl E - open/close NERDTree
-call CreateShortcut("C-e", ":NERDTreeToggle<CR>", "inv")
-
-" Ctrl F - Find
+" Ctrl F - Find in file
 call CreateShortcut("C-f", "/", "in", "noTrailingIInInsert")
 
 " Ctrl H - Search and Replace
@@ -235,8 +236,8 @@ call CreateShortcut("C-h", ":%s/", "in", "noTrailingIInInsert")
 " search
 call CreateShortcut("C-l", ":nohl<CR>", "in")
 
-" Ctrl G - Search content in files
-call CreateShortcut("C-g", ":Ag <CR>", "inv")
+" Ctrl G - Search content in workspace
+call CreateShortcut("C-g", ":Rg ", "inv", "noTrailingIInInsert")
 
 " Ctrl P - Search a file
 call CreateShortcut("C-p", ":Files .<CR>", "inv")
@@ -289,10 +290,10 @@ call CreateShortcut("A-Left", "gT", "inv")
 " Alt Right - Next tab
 call CreateShortcut("A-Right", "gt", "inv")
 
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
 
 
 " ----- Abbreviations -----
@@ -333,6 +334,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 let g:airline_theme='solarized'
+
+let g:airline_section_y = '{…}%3{codeium#GetStatusString()}'
 
 " ----- Raimondi/delimitMate settings -----
 let delimitMate_expand_cr = 1
