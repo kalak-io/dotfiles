@@ -3,3 +3,7 @@
 
 node_modules
 config/nvim/undodir/
+
+# windsurf rules
+.windsurfrules
+
