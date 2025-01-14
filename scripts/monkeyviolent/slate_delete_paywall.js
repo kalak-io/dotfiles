@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Delete paywall
 // @namespace   Violentmonkey Scripts
-// @match       *://www.slate.fr/*
+// @match       *://*.slate.fr/*
 // @grant       none
 // @version     1.0
 // @author      kalak
