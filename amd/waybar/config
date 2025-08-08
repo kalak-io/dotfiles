@@ -1,0 +1,110 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top", 
+  "position": "top",
+  "height": 30,
+  "spacing": 1,
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["group/hardware", "group/connection"],
+    "group/hardware": {
+      "orientation": "horizontal",
+      "modules": [
+        "cpu",
+        "battery",
+        "temperature",
+        "wireplumber"
+      ]
+    },
+    "group/connection": {
+      "orientation": "horizontal",
+      "modules": [
+        "bluetooth",
+        "network"
+      ]
+    },
+    "battery": {
+      "bat": "BAT1",
+      "interval": 60,
+      "states": {
+        "good": 95,
+        "warning": 20,
+        "critical": 10
+      },
+      "format": "{icon}",
+      "format-discharging": "{capacity}% {icon}",
+      "format-charging": "Charging",
+      "format-plugged": "Plugged",
+      "format-alt": "{time} {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+      "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    },
+    "bluetooth": {
+      "format": "<span color='#2aa9ff'></span>", // blue
+      "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+      "on-click": "blueman-manager",
+    },
+    "clock": {
+      "interval": 60,
+      "format": "{:%H:%M}",
+      "format-alt": "{:%A, %B %d, %Y}",
+      "tooltip":false
+    },
+    "cpu": {
+      "interval": 1,
+      "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}",
+      "format-icons": [
+        "<span color='#69ff94'>▁</span>", // green
+      "<span color='#2aa9ff'>▂</span>", // blue
+      "<span color='#f8f8f2'>▃</span>", // white
+      "<span color='#f8f8f2'>▄</span>", // white
+      "<span color='#ffffa5'>▅</span>", // yellow
+      "<span color='#ffffa5'>▆</span>", // yellow
+      "<span color='#ff9977'>▇</span>", // orange
+      "<span color='#dd532e'>█</span>"  // red
+      ],
+      "tooltip": true,
+      "tooltip-format": "CPU Usage:\n{usage}% average\n{load}\nUsage per core: {avg_frequency}GHz\n{per_core_usage}",
+      "on-click": "alacritty -e btm"
+    },
+    "hyprland/workspaces": {
+      "on-click": "activate",
+      "format": "{name}",
+      "format-icons": {
+        "active": "",
+        "default": ""
+      },
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "network": {
+      "interface": "wlan0",
+      "format": "{ifname}",
+      "format-wifi": "",
+      "format-ethernet": "",
+      "format-disconnected": "", //An empty format will hide the module.
+      "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+      "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-ethernet": "{ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-disconnected": "Disconnected",
+      "max-length": 50
+    },
+    "temperature": {
+      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+      "critical-threshold": 80,
+      "format-critical": "{temperatureC}°C <span color='#dd532e'>󰈸</span>", // red
+      "format": "󱃂",
+      "tooltip": true,
+      "tooltip-format": "CPU Temperature: {temperatureC}°C\nCritical at: {critical-threshold}°C"
+    },
+    "wireplumber": {
+      "format": "{icon}",
+      "format-muted": "",
+      "format-icons": ["", "", ""],
+      "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+}
